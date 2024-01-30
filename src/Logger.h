@@ -15,6 +15,7 @@
 #define WHITE_COLOR "\033[38;5;15m"
 #define RESET_COLOR "\033[0m"
 #define BOLD_UNDERLINE "\x1b[37;1;4m"
+#define LIGHT_BLUE_COLOR "\033[38;5;39m"
 
 #define ENTER "Entering"
 #define LEAVE "Leaving"
@@ -22,6 +23,7 @@
 #define WARNING "Warning"
 
 #define FONT_STYLE_FILE BOLD_UNDERLINE
+#define COLOR_VAR LIGHT_BLUE_COLOR
 #define COLOR_STRING "\x1b[38;5;208m"
 #define COLOR_LITERAL_TYPE "\x1b[94m"
 #define COLOR_USER_DEFINED_TYPE "\x1b[32;2;255;214;143m"
@@ -93,6 +95,7 @@ public:
 	static void Variable(std::string type, std::string name, std::string value, std::string color);
 	static void Warning(std::string message, std::string funcName, std::string fileName, int line);
 	static void Warning(std::string message);
+	static void InsertEmptyLine();
 
 	// Type information
 	static std::string ToBit(int value);

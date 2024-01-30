@@ -40,13 +40,13 @@ void Logger::Log(std::string text, std::string funcName, std::string fileName, i
         file = fileName;
     }
 
-	printf((temp + "(" + COLOR_MESSAGE + MESSAGE + RESET_COLOR + " in " + FONT_STYLE_FILE + file + RESET_COLOR + " at " + FONT_STYLE_FILE + std::to_string(line) + RESET_COLOR + " line" + ") : " + text + "\n").c_str());
+	printf((temp + "(" + COLOR_MESSAGE + MESSAGE + RESET_COLOR + " in " + FONT_STYLE_FILE + file + RESET_COLOR + " at " + FONT_STYLE_FILE + std::to_string(line) + RESET_COLOR + " line" + "): " + text + "\n").c_str());
 }
 
 void Logger::Log(std::string text)
 {
 	std::string temp = GetDistance();
-	printf((temp + "(" + COLOR_MESSAGE + MESSAGE + RESET_COLOR + ") : " + text + "\n").c_str());
+	printf((temp + "(" + COLOR_MESSAGE + MESSAGE + RESET_COLOR + "): " + text + "\n").c_str());
 }
 
 void Logger::EnterClass(std::string className, std::string funcName)
@@ -151,7 +151,7 @@ void Logger::Warning(std::string message, std::string funcName, std::string file
         file = fileName;
     }
 
-	printf((temp + "(" + COLOR_WARNING + WARNING + RESET_COLOR + " in " + FONT_STYLE_FILE + file + RESET_COLOR + " at " + FONT_STYLE_FILE + std::to_string(line) + RESET_COLOR + " line" + ") : " + message + "\n").c_str());
+	printf((temp + "(" + COLOR_WARNING + WARNING + RESET_COLOR + " in " + FONT_STYLE_FILE + file + RESET_COLOR + " at " + FONT_STYLE_FILE + std::to_string(line) + RESET_COLOR + " line" + "): " + message + "\n").c_str());
 }
 
 void Logger::Warning(std::string message)
@@ -162,7 +162,7 @@ void Logger::Warning(std::string message)
 
 std::string Logger::ToBit(int value)
 {
-	std::string result = COLOR_LITERAL_TYPE "0b(" RESET_COLOR;
+	std::string result = COLOR_VAR "0b(" RESET_COLOR;
 	int size = sizeof(value) * 8;
 
 	for (int i = size - 1; i >= 0; --i) {
@@ -170,16 +170,17 @@ std::string Logger::ToBit(int value)
 		result += std::to_string(bit);
 		if(i%8==0 && (i!=0)) result+= " ";
 	}
-	result += COLOR_LITERAL_TYPE ")" RESET_COLOR;
+	result += COLOR_VAR ")" RESET_COLOR;
 	return result.c_str();
 }
 
 void Logger::VariableInfo(std::string name, int variable)
 {
-	// TODO
-	std::string temp = GetDistance();
-	//printf((temp + "(" + COLOR_MESSAGE + "Variable info" + RESET_COLOR + ") " + name + " = " + std::to_string(variable) +
-	//	"; 0b" + ToBit(variable) + "; 0x%X\n", variable));
+	std::string temp = GetDistance() + "(" COLOR_VAR "Var" RESET_COLOR "): " + 
+		name + " = " COLOR_VAR "dec(" RESET_COLOR + std::to_string(variable) + COLOR_VAR ")" RESET_COLOR
+		"; " + Logger::ToBit(variable) + "; " COLOR_VAR "hex(" RESET_COLOR;
+	std::string tmp = COLOR_VAR ")" RESET_COLOR "\n";
+	printf("%s0x%X%s", temp.c_str(), variable, tmp.c_str());
 }
 
 void Logger::Enter(std::string funcName, std::string fileName, int line)
@@ -210,4 +211,8 @@ void Logger::Enter(std::string funcName, std::string fileName, int line)
 	printf((distance + DOWN_ARROW + '\n').c_str());
 
 	_iterator++;
+}
+
+void Logger::InsertEmptyLine(){
+	// TODO: just empty line..
 }

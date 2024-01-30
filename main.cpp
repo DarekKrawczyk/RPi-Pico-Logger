@@ -3,6 +3,18 @@
 #include <iostream>
 #include "src/Logger.h"
 
+void calcAVG(){
+    LOG_ENTER();
+
+    LOG_WARNING_EXT("Argument is 0!");
+    LOG_MESSAGE_EXT("Setting default avg value");
+
+    int avg = 24;
+    Logger::VariableInfo("avg", avg);
+
+    LOG_LEAVE();
+}
+
 int main()
 {
     stdio_init_all();
@@ -10,23 +22,14 @@ int main()
     LOG_ENTER();
 
     while(true){
-        printf("%s\n", Logger::ToBit(5).c_str());
         LOG_MESSAGE("Hello world");
-        LOG_ENTER();
-        LOG_MESSAGE("Hello world");
-        LOG_WARNING("Cos jest nie tak!");
-        LOG_LEAVE();
-        LOG_ENTER();
         int var = 5;
         std::string s = "ss";
         LOG_VARIABLE(Logger::Type::Int, var);
+        Logger::VariableInfo("var", var);
         LOG_VARIABLE_STRING(s);
         LOG_MESSAGE("Now enter another function");
-        LOG_ENTER_EXT();
-        LOG_WARNING_EXT("Cos jest nie tak!");
-        LOG_MESSAGE_EXT("Just got here!");
-        LOG_LEAVE();
-        LOG_LEAVE();
+        calcAVG();
         sleep_ms(1000);
     }
     LOG_LEAVE();
