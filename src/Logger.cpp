@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-const std::string Logger::Type::String = "String";
+const std::string Logger::Type::String = "string";
 const std::string Logger::Type::Int = "int";
 
 uint16_t Logger::_distance;
@@ -214,5 +214,33 @@ void Logger::Enter(std::string funcName, std::string fileName, int line)
 }
 
 void Logger::InsertEmptyLine(){
-	// TODO: just empty line..
+	std::string msg = GetDistance() + "|\n";
+	printf("%s", msg.c_str());
+}
+
+void Logger::StartProgram(){
+	bool enterDetected = false;
+	while(enterDetected == false){
+		char c = getchar();
+		if(c == 13) enterDetected = true;
+	}
+	std::string zero = "";
+	std::string msg = zero + "(" COLOR_INFORMATION "Program started" RESET_COLOR ")\n";
+	printf("%s", msg.c_str());
+}
+
+void Logger::PrintCompilationInfo(){
+	std::string zero = "";
+	std::string msg = zero + 
+	"<-------- " COLOR_INFORMATION "Compilation information" RESET_COLOR " -------->\n" + 
+	"Date: " + __DATE__ + "\n" +
+	"Hour: " + __TIME__ + "\n";
+	printf("%s", msg.c_str());
+}
+
+void Logger::ExitProgram(){
+	std::string zero = "";
+	std::string msg = zero + "(" COLOR_INFORMATION "Program finished" RESET_COLOR ")\n";
+	printf("%s", msg.c_str());
+	sleep_ms(100);
 }

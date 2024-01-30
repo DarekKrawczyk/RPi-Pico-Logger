@@ -1,11 +1,23 @@
 #pragma once
 #include <string>
+#include "time.h"
+#include <time.h>
 #include <stdlib.h>
 #include <cstdio>
 #include <typeinfo>
 #include <iostream>
 #include <stdio.h>
+#include "pico/stdio.h"
+#include "pico/stdlib.h"
 
+
+//	---------------------- NAMES ----------------------
+#define ENTER "Entering"
+#define LEAVE "Leaving"
+#define MESSAGE "Message"
+#define WARNING "Warning"
+
+//	---------------------- COLORS ----------------------
 #define RED_COLOR "\033[38;5;196m"
 #define GREEN_COLOR "\033[38;5;46m"
 #define YELLOW_COLOR "\033[38;5;226m"
@@ -17,13 +29,10 @@
 #define BOLD_UNDERLINE "\x1b[37;1;4m"
 #define LIGHT_BLUE_COLOR "\033[38;5;39m"
 
-#define ENTER "Entering"
-#define LEAVE "Leaving"
-#define MESSAGE "Message"
-#define WARNING "Warning"
-
+//	---------------------- FUNCTIONALITIES COLORS ----------------------
 #define FONT_STYLE_FILE BOLD_UNDERLINE
 #define COLOR_VAR LIGHT_BLUE_COLOR
+#define COLOR_INFORMATION YELLOW_COLOR
 #define COLOR_STRING "\x1b[38;5;208m"
 #define COLOR_LITERAL_TYPE "\x1b[94m"
 #define COLOR_USER_DEFINED_TYPE "\x1b[32;2;255;214;143m"
@@ -32,6 +41,7 @@
 #define COLOR_WARNING RED_COLOR
 #define COLOR_CLASS COLOR_USER_DEFINED_TYPE
 
+//	---------------------- SYMBOLS ----------------------
 #define LEFT_ARROW "\u2190"
 #define UP_ARROW "\u2191"
 #define RIGHT_ARROW "\u2192"
@@ -39,25 +49,13 @@
 #define LEFT_RIGHT_ARROW "\u2194"
 #define UP_DOWN_ARROW "\u2195"
 
-// #define typename(x) _Generic((x),                                                 \
-//              bool: "bool",                  unsigned char: "unsigned char",          \
-//              char: "char",                     signed char: "signed char",            \
-//         short int: "short int",         unsigned short int: "unsigned short int",     \
-//               int: "int",                     unsigned int: "unsigned int",           \
-//          long int: "long int",           unsigned long int: "unsigned long int",      \
-//     long long int: "long long int", unsigned long long int: "unsigned long long int", \
-//             float: "float",                         double: "double",                 \
-//       long double: "long double",                   char *: "pointer to char",        \
-//            void *: "pointer to void",                int *: "pointer to int",         \
-//           default: "other")
-
-//#define LOGGER_GET_TYPE(var) (typeid(var).name())
-//#define LOGGER_GET_TYPE(var) (typename(var))
-
+//	---------------------- FUNCTION MACROS ----------------------
+#define LOG_START_PROGRAM() (Logger::StartProgram())
+#define LOG_EXIT_PROGRAM() (Logger::ExitProgram())
 #define LOG_INITIALIZE(distance) (Logger::Initialize(distance))
 #define LOG_VARIABLE(type, var) (Logger::Variable(type, #var, std::to_string(var), COLOR_LITERAL_TYPE))
-#define LOG_VARIABLE_STRING(var) (Logger::Variable("string", #var, var, COLOR_USER_DEFINED_TYPE))
 #define LOG_VARIABLE_INFO(var) (Logger::VariableInfo(#var, var))
+#define LOG_VARIABLE_STRING(var) (Logger::Variable("string", #var, var, COLOR_USER_DEFINED_TYPE))
 #define LOG_ENTER() (Logger::Enter(__func__))
 #define LOG_ENTER_CLASS(className, funcName) (Logger::EnterClass(className, funcName))
 #define LOG_ENTER_EXT() (Logger::Enter(__func__, __FILE__, __LINE__))
@@ -67,6 +65,8 @@
 #define LOG_MESSAGE_EXT(message) (Logger::Log(message, __func__, __FILE__, __LINE__))
 #define LOG_WARNING(message) (Logger::Warning(message))
 #define LOG_WARNING_EXT(message) (Logger::Warning(message, __func__, __FILE__, __LINE__))
+#define LOG_PRINT_COMPILATION_INFO() (Logger::PrintCompilationInfo())
+#define LOG_EMPTY_LINE() (Logger::InsertEmptyLine())
 
 
 class Logger
@@ -96,6 +96,9 @@ public:
 	static void Warning(std::string message, std::string funcName, std::string fileName, int line);
 	static void Warning(std::string message);
 	static void InsertEmptyLine();
+	static void StartProgram();
+	static void PrintCompilationInfo();
+	static void ExitProgram();
 
 	// Type information
 	static std::string ToBit(int value);
