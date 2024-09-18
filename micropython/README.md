@@ -1,6 +1,6 @@
-# Raspberry Pi Pico Logger - micropython implementation
+# RPi Pico Logger - Micropython implementation
 ## About
-This section of repository contains implementation of **RPi-Pico-Logger** for micropython language. 
+This section of repository contains Micropython implementation of **RPi-Pico-Logger** library. 
 
 ## Features
 - tbd...
