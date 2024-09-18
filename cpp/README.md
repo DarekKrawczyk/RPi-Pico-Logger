@@ -116,6 +116,7 @@ This section will provide information how to run examplary code, and how to add 
     Path: PicoLogger\build\example.uf2
     ```
 5. Run tool that can display serial communication. For example **Putty**.
+6. **Remember to hit 'Enter' when putty is loaded**, it is very important because if you dont do this, program will not start!!!! This is caused by **LOG_START_PROGRAM()** macro, once you remove it it will work just fine without pressing 'Enter'.
 ### How to add logger to your project
 1. Clone this repository to your Raspberry Pi Pico project directory:
 
