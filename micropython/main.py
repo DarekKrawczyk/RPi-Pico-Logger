@@ -1,12 +1,3 @@
-# RPi Pico Logger - Micropython implementation
-## About
-This section of repository contains Micropython implementation of **RPi-Pico-Logger** library. 
-
-## Output
-![](../images/LogExampleMicoPython.png)
-
-## Example
-```python
 from RPiLogger import RPiLogger
 from time import sleep
 
@@ -48,8 +39,3 @@ except KeyboardInterrupt as exception:
     RPiLogger.Warning(str(exception))
     RPiLogger.LeaveScope()
 RPiLogger.LeaveScope()
-```
-
-## How to use it
-1) Load RPiLogger.py file into Rasbperry Pi Pico's memory
-2) Import package by calling ```from RPiLogger import RPiLogger```
